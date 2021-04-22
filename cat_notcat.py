@@ -35,7 +35,7 @@ X_train = X_train_orig/255
 X_test = X_test_orig/255
 Y_train = Y_train_orig.T
 Y_test = Y_test_orig.T
-#print ("number of training examples = " + str(X_train.shape[0]))
+print ("number of training examples = " + str(X_train.shape[0]))
 #print ("number of test examples = " + str(X_test.shape[0]))
 #print ("X_train shape: " + str(X_train.shape))
 #print ("Y_train shape: " + str(Y_train.shape)
@@ -51,6 +51,12 @@ def Cat_Model(input_shape):
     X = Conv2D(32, (3,3),strides = (1,1),kernel_initializer="glorot_uniform",name = 'conv0')(X)
     X = BatchNormalization(axis = 3, name = 'bn0')(X)
     X = Activation('relu')(X)
+    
+    X = Conv2D(32, (3,3),strides = (1,1),kernel_initializer="glorot_uniform",name = 'conv1')(X)
+    X = BatchNormalization(axis = 3, name = 'bn1')(X)
+    X = Activation('relu')(X)
+    
+    
     
     
     X = MaxPooling2D((2,2), name = 'max_pool1')(X) 
@@ -76,8 +82,8 @@ print()
 print("Loss = "+ str(preds[0]))
 print("Test Accuracy = " + str(preds[1]))
 
-#catmodel.summary()
-#plot_model(catmodel, to_file='catModel.png')
+catmodel.summary()
+plot_model(catmodel, to_file='catModel.png')
 
 def pre_dict(x1):
     img_path = x1
